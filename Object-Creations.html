@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript</title>
+	<script type="text/javascript">
+		
+      
+      var person = {};
+      console.log(person);
+
+var person2 = new Object(null);
+      console.log(person2);
+
+   var person3 = new Object(Object.prototype,{
+
+   	
+   		Balaji:{
+      value: 'Fiesta',
+      configurable: true,
+      writable: true,
+      enumerable: false
+         }
+   	 });
+
+   console.log(person3);
+
+
+   // 1. Object constructor
+   var fund = new Object();
+   fund.name = "Morgan";
+   fund.getName= function()
+    {
+		return this.name;
+    }
+
+    console.log(fund.getName());
+
+    // 2. Literal Notation
+
+
+    var factory_fund = 
+    {
+	    name: "Stanley",
+	    fundId  : 5566,
+	    fundName : function() 
+	    {
+	        return this.name;
+	    }
+  	};
+   console.log(factory_fund.fundName());
+
+   // 3. Factory function
+
+    //When we use some logic to create a complex object , then we can reuse it . By using Factory functions
+
+
+    var format_fund =  function(fundName)
+    {
+    	var newFund = new Object();
+    	newFund.name = fundName;
+    	newFund.taxYear = 2017;
+    	newFund.getFund = function()
+    	{
+    		return this.name + "Hedge Funds";
+    	};
+
+    	return newFund;
+    };
+
+    var initial_fund = format_fund("January");
+    var final_fund = format_fund("September");
+
+    console.log(initial_fund.getFund());
+    console.log(final_fund.getFund());
+
+    // 4. using constructor
+
+    //We can create objects by using constructors. We can place some common logic inside the “constructing function”. And we can reuse this function wherever we need to create an instance. So the function is not creating an instance it just perform the logic to form the Object structure.
+
+    function format_fund_2(fundName)
+    {
+    	var i=1;
+    	var taxYear = "2017";
+    	var fund_suffix = "Hedge Funds";
+    	 if (i==1)
+    	 {
+    	 	return fundName+taxYear+fund_suffix;
+    	 }
+
+    	 return "a";
+    }
+     
+    var form_fund =  format_fund_2("March");
+    console.log(form_fund);
+
+    //5. using Prototypes
+
+
+
+    //6.Singleton
+
+
+
+    var singleton = new function(){  
+    this.name = "ApplicationName";  
+		};
+
+    console.log(singleton);
+
+
+    
+
+	</script>
+</head>
+<body>
+Javascript
+</body>
+</html>

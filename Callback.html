@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Callback</title>
+	
+</head>
+<body style="background-color:#333;color:#FFF">
+
+<h1>Callback ( )</h1>
+
+<script>
+
+	window.addEventListener("resize",function(){ 
+		console.log("window is listening whether it is getting resized. Once resize happened this text is printed") ; 
+	});
+	
+	function first(){
+		var request = new XMLHttpRequest();
+		request.open("GET","https://reqres.in/api/users?page=1",true);
+		request.send();
+		request.addEventListener("loadend",function(event){ 
+			
+			if(event.target.status==200){
+				var request = new XMLHttpRequest();
+				request.open("GET","https://reqres.in/api/users?page=2",true);
+				request.send();
+				request.addEventListener("loadend",function(event){
+						if(event.target.status==200)
+						{
+							var request = new XMLHttpRequest();
+							request.open("GET","https://reqres.in/api/users?page=3",true);
+							request.send();
+							request.addEventListener("loadend",function(event){
+								if(event.target.status==200)
+								{
+								console.log("This is called callback Hell");
+								}
+								else{
+									console.log("Page 3 call failed");
+								}
+							});
+						}
+						else{
+							console.log("Page 2 call failed");
+						}
+				});
+			} else{
+				console.log("Page 1 call failed");
+			}
+		
+		
+		});
+		
+	}
+	first();
+</script>
+
+
+</body>
+</html>
+
+<!--
+	What is callback?
+			In genral english: call it after sometime.
+			
+			* A function which is passed as parameter into another function and get executed after certain condition is called callback function.
+			  The outer function may process some value and give it as input for this callback function.
+			
+	Why we need to use callback function ?
+
+			* Javascript is a event driven language which means it will keep running to next line while listening to an event, so functions 
+			  may not return values in a order in which they get called  .But we may wants to Ensure the order of execution. 
+			  At this point we can go for Callback.
+
+	When can I use callback function ?
+
+			* I want to call function 'B' after the execution of function 'A' . But I don't know when function A's execution will gets complete.
+			  At this point I can send function 'B' as a parameter to function A. So here we are ensuring B is called after A.
+	
+	When need not to use callback function ?
+			
+			* when we dont have a need to do asynchronus operations.
+	
+	Advantages ? 
+
+			* Enables javascript to work asynchronusly even it is a single threaded language.
+
+	Disadvantages ?
+
+			* Poor readblity of the code.
+-->

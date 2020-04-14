@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Workers Example</title>
+	<meta charset="ISO-8859-1">
+	<script type="text/javascript">
+		var worker = new Worker('doWork.js');
+
+		console.log(worker);
+		worker.addEventListener('message', function(e) {
+  		console.log('Worker said: ', e.data);
+		}, false);
+		var myObject={name:"Bala",Age:23,Citizenship:"Indian"};
+		worker.postMessage({name:"Bala",Age:23,Citizenship:"Indian"});
+
+	</script>
+</head>
+<body>
+<h1>...Workers run in separate space...</h1>
+
+</body>
+</html>

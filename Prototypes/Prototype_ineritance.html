@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototype example</title>
+	<style type="text/css">
+		.password
+		{
+			padding:10px;
+			width:300px;
+			height:40px;
+			background-color:#333333;
+			color:#FFFFFF;
+			line-height:40px;
+			text-align:center;
+			cursor:pointer;
+
+		}
+		.label
+		{
+			font-size:24px;
+			color:#333333;
+
+		}
+
+
+
+
+	</style>
+	<script type="text/javascript">
+		
+	var Transaction = new Object();
+	console.log(Transaction);
+	function genratePassword(username,customer_id)
+	{
+		 Transaction = new genrateGlobalPassword(username,customer_id);
+		 console.log(Transaction);
+	}
+	
+
+	function genrateGlobalPassword(username,customer_id)
+	{
+		try
+		{
+			console.log(username,customer_id);
+			this.User_name=username;
+			this.Customer_id = customer_id;
+			var today= new Date();
+			var pwd=this.User_name+this.Customer_id+today;
+			this.GlobalPassword=pwd;
+			console.log(this.GlobalPassword); 
+			
+		}
+
+		catch(Exception)
+		{
+			console.log(Exception);
+		}
+		
+	}
+
+
+	
+
+	genrateGlobalPassword.prototype.genrateTransactionPassword = function()
+	{
+		this.TransactionKey="UK2345678";
+		this.TransactionPwd = this.GlobalPassword + this.TransactionKey; 
+		//Global password inherited from genrateGlobalPassword function
+		console.log(this.TransactionPwd);
+	}
+
+	</script>
+
+</head>
+<body>
+<div class="label">
+	User Name:
+</div>
+<br>
+<div class="label"> 
+<input type="text" name="username" id="username">
+</div>
+<br>
+<br>
+<div>
+	Customer ID:
+</div>
+<br>
+<div> 
+<input type="text" name="customer_id" id="customer_id">
+</div>
+<br>
+<br>
+<div class="password" onclick="genratePassword(document.getElementById('username').value,document.getElementById('customer_id').value);">
+	Genrate Global Password
+</div>
+<br>
+<br>
+<div>...............................Crossing Wizards and modules........................................</div>
+<br>
+<br>
+<br>
+<br>
+<div class="password" onclick="Transaction.genrateTransactionPassword();">
+	Genrate Transaction Password
+</div>
+
+
+</body>
+</html>

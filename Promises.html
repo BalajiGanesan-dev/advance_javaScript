@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Promises In Js</title>
+	<script type="text/javascript">
+		
+function single(){
+	var homePage = new Promise(function(resolve,reject){
+			var request = new XMLHttpRequest();
+			request.onload = function(){
+				
+					if(request.status>=200){
+						resolve(request.response);
+					}
+					else
+						reject(request.error);
+				
+			}
+			request.open("GET","https://reqres.in/api/users?page=1");
+			request.send();
+		});
+
+	homePage.then(function(response){ 
+				console.log("Home page loaded"); 
+				
+		}).catch(function(catchTherror){
+			console.log("error -homepage"); 
+		})
+}
+
+
+function home_page(){
+	return new Promise(function(resolve,reject){
+		var request = new XMLHttpRequest();
+		request.onload = function() {
+				
+				if(request.status>=200){
+					resolve(request.response);
+				}
+				else
+					reject(response.status);
+			
+		}
+		request.open("GET","https://reqres.in/api/users?page=1");
+		request.send();
+	});
+}
+
+function summary_page(){
+	return new Promise(function(resolve,reject){
+		var request = new XMLHttpRequest();
+		request.onload = function(){
+			if(request.status>=200){
+				resolve(request.response);
+			}
+			else{
+				reject(response.status);
+			}
+		}
+		request.open("GET","https://reqres.in/api/users?page=2");
+		request.send();
+	});
+}
+function multiple() {
+	home_page().then(function(resolved){
+			console.table(resolved);
+			return ;
+	});
+	summary_page();
+}
+function promiseRace(){
+		var Page1 = new Promise(function(resolve,reject){
+			var request = new XMLHttpRequest();
+			request.onload = function(){
+				
+					if(request.status>=200){
+						resolve(request.response);
+					}
+					else
+						reject(request.responseText);
+				
+			}
+			request.open("GET","https://reqres.in/api/users?page=1");
+			request.send();
+		});
+	
+		var Page2 = new Promise(function(resolve,reject){
+			var request = new XMLHttpRequest();
+			request.onload = function(){
+				
+					if(request.status>=200){
+						resolve(request.response);
+					}
+					else
+						reject(request.responseText);
+				
+			}
+			request.open("GET","https://reqres.in/api/users?page=2");
+			request.send();
+		});
+
+		var Page3 = new Promise(function(resolve,reject){
+			var request = new XMLHttpRequest();
+			request.onload = function(){
+				
+					if(request.status>=200){
+						resolve(request.response);
+					}
+					else
+						reject(request.responseText);
+				
+			}
+			request.open("GET","https://reqres.in/api/users?page=3");
+			request.send();
+		});
+
+		Promise.race([Page1,Page2,Page3]).then(function(resolvedSoon){
+			console.log(resolvedSoon);
+		})
+
+}
+	</script>
+	<style>
+		.btn{
+			padding:20px;
+			line-height:50px;
+			margin:10px;
+			background-color:#333;
+			color:#FFF;
+		}
+	</style>
+</head>
+<body>
+<h1>Promises</h1>
+
+<div class="btn" onclick="single()"> For a single Callback </div>
+<div class="btn" onclick="multiple()"> For multiple Callback </div>
+<div class="btn" onclick="promiseRace()"> For Promise race </div>
+
+</body>
+</html>
+
+<!--
+	what is Promise ?
+			* Promise is an object which represents the eventual completion (success or failure) of asynchronus call.
+
+	Why we need to use promise ?
+			* Sometime we may wants to use callback functions, when we realise this may cause Callback hell then we can go for promise.
+			  (else always we can use callback)
+			* When we need more readblity of code.
+
+	When we need not to use promise ?
+			* Not with Event listeners
+			* Not with synchronised function calls.
+	Standards of then() function ?
+			* then function should return another promise or
+			* 				should return synchronus value
+			*				should return synchronus error.
+	Advantages ?
+			* Promise makes the code better readble it also gaurntees the order of execution.
+			* When there is multiple callbacks, Promises helps better with Chaining of "then()" . 
+
+	
+	}
+		-->

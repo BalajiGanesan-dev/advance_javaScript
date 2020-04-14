@@ -1,0 +1,301 @@
+
+<!--
+author: Balaji Ganesan
+Spike for Closure. It is two step verification process. 
+In this OTP genrating process are closed by Sign In process.
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clousers</title>
+	<style type="text/css">
+		.closures
+		{
+			left: 40%;
+    		margin:auto;
+		    background-color: #333333;
+		    color: #FFFFFF;
+		    width: 250px;
+		    text-align: center;
+		    font-size: 24px;
+		    box-shadow: 0px 1px 1px 1px grey;
+    	
+		}
+		.test
+		{
+			width:250px;
+			background-color: orange;
+			color: #FFFFFF;
+		}
+		.borders
+		{
+			width:400px;
+			height: 400px;
+			box-shadow:0px 2px 2px 2px grey;
+			border:1px groove #646464;
+			margin: auto;
+			background-color:#ffe600;
+		}
+		.forClosureIsAbsolute
+		{
+			height: 150px;
+		}
+		.input
+		{
+			width:200px;
+			height:40px;
+			border:1px inset #333333;
+			box-shadow:0px 1px 1px 1px grey;
+			margin: 20px;
+			float: left;
+			padding-left: 15px;
+		}
+		.sign_in
+		{
+				padding-left: 12px;
+			    width: 90px;
+			    line-height: 35px;
+			    font-size: 18px;
+			    color: #333333;
+			    box-shadow: 0px 1px 1px 1px grey;
+			    clear: left;
+			    border: 1px inset #333333;
+			    box-shadow: 0px 1px 1px 1px grey;
+			    /* margin-top: 20px; */
+			    margin: auto;
+			    margin-top: 20px;
+		}
+		.sign_in_specfic
+		{
+			float:left;
+			margin-left:21px;
+
+		}
+		.oneByone
+		{
+			float: left;
+
+		}
+		#step_two
+		{
+			display:none;
+		}
+		#a
+		{
+			display:none;
+		}
+		.verify_closure
+		{
+			background-color: #646464;
+    		color: #FFFFFF;
+    		margin: 15px;	
+		}
+		
+
+	</style>
+	<script type="text/javascript">
+	
+	        
+			var x={};
+
+			// 1. Once the username and password is entered. Sign In function is called.In which an Object is created by using a constructor called Two_Step_verification.
+	        function sigIn(username,password)
+	        {
+	        	 this.verifyClosure = "verifyClosure";
+	        	 x = new Two_Step_verification(username,password);
+	        	 document.getElementById("step_two").style.display = "block";
+
+	        	 
+	        }
+
+
+	        function SendOTP(username,password)
+	        {
+
+	        // 6. Once the user is Signed In they have to do the cross Otp verification.Here the otp is genrated using the function X (Here we have to consider X as function Since it has loaded with Two_Step_verification);
+
+	        //7.Here "a" is the genrated OTP.
+	         var a =x(username,password);
+	         a = a.slice(1,5);
+	         console.log(a);
+	         //UI to show & hide
+	         document.getElementById("step_one").style.display = "none";
+	         document.getElementById("step_two").style.display = "block";
+	         document.getElementById("step_two").style.display = "none";
+	         document.getElementById("a").style.display = "block";
+	         document.getElementById("setOTP").innerHTML = a;
+
+	         }
+
+
+	        //2. This constructor initializes the object X . Username and Password is passed as params.
+			var Two_Step_verification = function(username,password)
+			{
+				this.username =username;
+				this.password =password;
+				this.verifyClosure = "verifyClosure";
+				//3 . Assume here is a API call to check the user name and password. And also assume the given creds are verified. Here the next set of verification starts.
+
+
+				var a=new Date();
+				var GenrateCrypt = "closure"+username+password+a;
+				
+
+				     var Otp_generation= function()
+				     {
+				     	this.verifyClosure = "verifyClosure";
+				     	// 4.GenrateCrypt is a crypt formed during Sign In process. And here it is used in Otp_genration
+				     			
+				     			// 5.Here is an unique algorithm for this module using Vowels in English,To genrate OTP.
+				     			var otp_initial = GenrateCrypt;
+						     	var a = otp_initial.length;
+						     	var textArray=[];
+								var x=0;
+								for(var i=1;i<=otp_initial.length;i++)
+								{
+								  textArray.push(otp_initial.slice(x, i));
+								  x=x+1;
+								  
+								}
+
+								var key1,key2,key3,key4;
+								
+								for(var i=0;i<=textArray.length;i++)
+								{
+								//checks for a	
+								if(textArray[i]=="a" || textArray[i]=="A")
+								{  key1=i; }
+
+								//checks for e
+								if(textArray[i]=="e" || textArray[i]=="E")
+								{  key2=i; }
+
+								//checks for i
+								if(textArray[i]=="i" || textArray[i]=="I")
+								{  key3=i; }
+
+								//checks for o
+								if(textArray[i]=="o" || textArray[i]=="O")
+								{  key4=i; }
+
+								}
+								
+								var otp = ""+key1+key2+key3+key4;
+								return otp;
+				     }
+
+				     return Otp_generation;
+			}
+
+			//8. Now check the Encapsulation property of closures. Lets try to inherit the closure variables in another function.
+			var FromPrototype = new Object();
+
+
+			//9. Inheriting a normal function. This will work.
+			function verify_Closure()
+			{
+				FromPrototype = new sigIn("Example Username","Example password");
+			}
+			
+			// sigIn Prototype
+			sigIn.prototype.Vereify_closure_signIn = function()
+			{
+				var a = this.verifyClosure;
+				alert("Inherting a value from sign_in function  "+a);
+				console.log("sigIn.prototype.Vereify_closure_signIn is a function");
+			}
+
+			//10. Inheriting a closure function. This will  not work.
+			function verify_Closure_again()
+			{		
+
+				FromPrototype = new Two_Step_verification("Example Username","Example password");
+
+				alert(" Cannot inhert a value from Two_Step_verification function. Click 'Verify Again' to Find an error in console that we cannot create a prototype for Closure functions.So the variables inside these functions are secured...");
+
+				try
+				{
+					FromPrototype = new  Otp_generation();
+				}
+				catch(ex)
+				{
+					console.log(ex);
+				}
+				
+			}
+			
+			//Prototyping Closures parent. This getting failed.
+			Two_Step_verification.prototype.Vereify_closure_Two_Step_verification = function()
+			{
+				var a = this.verifyClosure;
+				alert("Inherting a Vereify_closure_Two_Step_verification  "+a);
+			}
+			
+			//Prototyping Closures child. This also getting failed.
+			Otp_generation.prototype.Vereify_Otp_generation = function()
+			{
+				var a = this.verifyClosure;
+				alert("Inherting a Vereify_closure_Otp_generation  "+a);
+			}
+			
+	</script>
+</head>
+<body>
+<div class="forClosureIsAbsolute">
+	<div class="closures">
+	Closures
+	</div>
+</div>
+
+<!--User Enters the user name and password-->
+<div class="borders" id="step_one">
+	<div class="oneByone">
+	<input type="text" name="username" class="input" placeholder="user name" id="username" />
+	</div>
+	<div class="oneByone">
+	<input type="text" name="password" class="input" placeholder="password" id="password"/>	
+	</div>
+
+	<div class="sign_in sign_in_specfic" onclick="sigIn(document.getElementById('username').value,document.getElementById('password').value)">
+	Sign In
+	</div>
+
+</div>
+
+<div id="step_two" class="sign_in" onclick="SendOTP(document.getElementById('username').value,document.getElementById('password').value)">
+	Send OTP
+</div>
+
+<div class="borders set_otp" id="a">
+	<div class="forClosureIsAbsolute">
+		<div class="closures">
+			Your OTP is <span id="setOTP"></span>
+		</div>
+	</div>
+	
+		<div class="verify_closure" onclick="verify_Closure();FromPrototype.Vereify_closure_signIn();">
+		 Click to Inherit  a value from a function which is not using Closures... 
+		</div>
+	
+
+	
+			<div class="verify_closure" onclick="verify_Closure_again();">
+		 		Click to Inherit  a value from a function which is using Closures... 
+			</div>
+	
+
+	
+		<div class="verify_closure" onclick="FromPrototype.Vereify_closure_Two_Step_verification();">
+		 Verify again
+		</div>
+	
+
+
+</div>
+
+
+</body>
+</html>
