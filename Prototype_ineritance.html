@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototype example</title>
+	<style type="text/css">
+		.password
+		{
+			padding:10px;
+			width:300px;
+			height:40px;
+			background-color: blueviolet;
+			color:#FFFFFF;			
+			line-height:40px;
+			text-align:center;
+			cursor:pointer;
+
+		}
+		.label
+		{
+			font-size:24px;
+			color:#333333;
+
+		}
+
+
+
+
+	</style>
+	<script type="text/javascript">
+		
+	var Transaction = new Object();
+	
+
+	function genratePassword(username,customer_id)
+	{
+		 Transaction = new genrateSessionPassword(username,customer_id);
+		 
+	}
+	
+
+	function genrateSessionPassword(username,customer_id)
+	{
+			this.User_name=username;
+			this.Customer_id = customer_id;
+
+			this.sessionPassword=this.User_name[2]+this.Customer_id[3]+new Date().getTime();
+			
+	}
+	
+	genrateSessionPassword.prototype.genrateTransactionPassword = function()
+	{
+		this.TransactionKey="UK2345678";
+		this.TransactionPwd = this.sessionPassword + this.TransactionKey; //session password inherited from genrateSessionPassword prototype
+		document.getElementById("showTransId").innerHTML = this.TransactionPwd;
+	}
+
+	</script>
+
+</head>
+<body>
+<div style="color:blueviolet">
+	<h1 >IDFC online banking</h1>
+	<br>
+	<br>
+	<h3>Lets consider the user needs to create a session password after Log-in</h3>
+	<br>
+	<br>
+	<h3>After some time...</h3>
+	<br>
+	<br>
+	<h3>If he wants to send money, He needs a transaction password...</h3>
+	<br>
+	<br>
+	<h3>Here Genrated session password should be Secured. So we are inherting it while creating a transaction password</h3>
+</div>
+<div class="label">
+	User Name:
+</div>
+<br>
+<div class="label"> 
+<input type="text" name="username" id="username">
+</div>
+<br>
+<br>
+<div>
+	Customer ID:
+</div>
+<br>
+<br>
+
+<div> 
+<input type="text" name="customer_id" id="customer_id">
+</div>
+<br>
+<br>
+<button style="background-color: blueviolet;color:#FFFFFF;" > Log-In</button>
+<br>
+<br>
+<h3>To continue with your Online banking, Please create a Session password</h3>
+<div class="password" onclick="genratePassword(document.getElementById('username').value,document.getElementById('customer_id').value);">
+	Genrate session Password
+</div>
+<br>
+<br>
+<div>...............................Crossing Wizards and modules........................................</div>
+<br>
+<br>
+<br>
+<br>
+<h2>Send money Module</h2>
+<h3>To continue with your money transaction, Please create a transaction password</h3>
+<div class="password" onclick="Transaction.genrateTransactionPassword();">
+	<div>Genrate Transaction Password</div>
+	<div id="showTransId"></div>
+</div>
+<br>
+<br>
+<input type="number" placeholder="Enter amount in rupees" style="width:300px;">
+<br>
+<br>
+<input type="text" placeholder="Enter current transaction password" style="width:300px;">
+<br>
+<br>
+<button style="background-color: blueviolet;color:#FFFFFF;" onclick="alert('Transaction done.')" >Pay</button>
+
+</body>
+</html>

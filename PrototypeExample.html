@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototype Examples</title>
+	<script type="text/javascript">
+		console.log("----Boolean prototype----");
+		Boolean.prototype.returnAnswer = function(){
+
+			if(this.valueOf()==true){
+
+				return "Yes";
+			}
+			else
+				return "No";
+		}
+
+		var a = new Boolean(true);
+
+		var answer = a.returnAnswer();
+		console.log(answer);
+
+		console.log("----Array forEachString prototype----");
+
+		//Normal forEach function invokes for every item in an array where this prototype function invokes for every string in an array.
+		
+		Array.prototype.forEachString = function(callbackFn){
+
+			var newAry = [];
+			for(i=0;i<this.length;i++)
+			{
+				if(typeof this[i]== "string"){
+					callbackFn(this[i]);
+					
+				}
+			}
+		}
+		
+		var G=["a",1,"b",2,"c",3,"d",4];
+		G.forEachString(function(item){ console.log(item); });
+		
+
+	</script>
+</head>
+<body>
+
+<h1>See console</h1>
+
+</body>
+</html>

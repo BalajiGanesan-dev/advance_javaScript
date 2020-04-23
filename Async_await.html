@@ -1,0 +1,154 @@
+<html>
+    <head>
+        <title>
+            async_await
+        </title>
+    </head>
+    <script>
+
+        //Creating Promises......
+
+            function home_page(){
+                return new Promise(function(resolve,reject){
+                var request = new XMLHttpRequest();
+                request.onload = function() {
+                        
+                        if(request.status>=200){
+                            setTimeout(()=>{
+                            resolve(request.response);
+                                            },1000);
+                        }
+                        else
+                            reject(response.status);
+                    
+                }
+                request.open("GET","https://reqres.in/api/users?page=1");
+                request.send();
+            });
+        }
+        function summary_page(){
+                return new Promise(function(resolve,reject){
+                var request = new XMLHttpRequest();
+                request.onload = function() {
+                        
+                        if(request.status>=200){
+                            setTimeout(()=>{
+                            resolve(request.response);
+                                            },2000);
+                        }
+                        else
+                            reject(response.status);
+                    
+                }
+                request.open("GET","https://reqres.in/api/users?page=2");
+                request.send();
+            });
+        }
+        function Done_page(){
+                return new Promise(function(resolve,reject){
+                var request = new XMLHttpRequest();
+                request.onload = function() {
+                        
+                        if(request.status>=200){
+                            setTimeout(()=>{
+                            resolve(request.response);
+                                            },3000);
+                        }
+                        else
+                            reject(response.status);
+                    
+                }
+                request.open("GET","https://reqres.in/api/userss?page=3");
+                request.send();
+            });
+        }
+
+
+       
+
+		
+
+        //.....................................................................
+
+
+
+        // Defining Async function
+
+        async function asynchronusRequestHandling()
+        {
+            let response1 = home_page();
+            let response2 = summary_page();
+            let response3 = Done_page();
+
+
+            try{
+
+                    await  response1;
+                    console.log("Logics depended to response1 are handled");
+
+            
+                    await response2; 
+                    console.log("Logics depended to response2 are handled");
+
+                    await  response3;
+                    console.log("Logics depended to response3 are handled");
+                 
+                    return 1;
+            }
+            catch (err){
+                    console.log("error occured !");
+            }
+
+        }
+
+    // var xx = asynchronusRequestHandling();
+    // console.log(xx);
+    </script>
+    <style>
+            
+    </style>
+
+    <body>
+            <h1 style="color:orange; cursor: pointer;" onclick="asynchronusRequestHandling()">Async Await</h1>
+    </body>
+</html>
+
+<!--
+    what is async-await in javascript?
+                    async-await is a feature of javascript which allows us to write promises in more comfortable way.
+                    async-await is an extension to Promises. The return type of async-await function is a promise.
+
+    Why we need to use async-await ?
+                    When we have a need to call multiple API calls asynchronusly but wants to handle its response synchronusly then 
+                    instead of promise chain we can use async-await .
+
+                    async - an expression to denote an async function.
+                    await - an expression to pause and resume the code flow.
+
+    When we need to use async-await ?
+                    When we wants to write a series of promise in a more fashionable way instead of using promise chain then we
+                    can go for async-await .
+
+    When we need not to use async-await ?
+                    Async-awit is a latest javascript features it may not have proper support with older browsers. So if we really want to 
+                    support older browsers. Then we would have a concern over using this.
+
+    Advantages ?
+                    Visual complexity is reduced. Anyone can understand the code. since code inside async function works synchronosuly.
+
+                    The retutn type of async await is an implicit promise object. So whatever you done with promise, you can do the same using
+                    that object.
+
+                    Async-await runs in a seprate order other than event-loop.
+
+                    ***event-loop , microtask-queue , workers
+
+    Disadvantages ?
+                     "async-await" is not supported with IE .
+                      If you are using transpilers like ts or babel then no need to worry about that.
+
+    extended usage ?
+                    for..await... - using await with for loops. Will be usefull with asyncIterators/ asyncGenrators
+                    
+
+-->
