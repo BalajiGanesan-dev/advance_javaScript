@@ -25,7 +25,7 @@
 		
 		Array.prototype.forEachString = function(callbackFn){
 
-			var newAry = [];
+			
 			for(i=0;i<this.length;i++)
 			{
 				if(typeof this[i]== "string"){
@@ -36,8 +36,17 @@
 		}
 		
 		var G=["a",1,"b",2,"c",3,"d",4];
-		G.forEachString(function(item){ console.log(item); });
-		
+		G.forEachString(function (item) { console.log(item); });
+
+		Number.prototype.convertToDollar = function () {
+			return "$" + (this.toFixed(2)).toString();
+        }
+
+		var a = 5;
+		console.log(a.convertToDollar());
+
+		var b = 6.78;
+		console.log(b.convertToDollar());
 
 	</script>
 </head>

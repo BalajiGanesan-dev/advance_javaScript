@@ -61,13 +61,32 @@ function summary_page(){
 		request.open("GET","https://reqres.in/api/users?page=2");
 		request.send();
 	});
-}
+		}
+
+        function done_page() {
+            return new Promise(function (resolve, reject) {
+                var request = new XMLHttpRequest();
+                request.onload = function () {
+                    if (request.status >= 200) {
+                        resolve(request.response);
+                    }
+                    else {
+                        reject(response.status);
+                    }
+                }
+                request.open("GET", "https://reqres.in/api/users?page=3");
+                request.send();
+            });
+        }
 function multiple() {
-	home_page().then(function(resolved){
-			console.table(resolved);
-			return ;
+	home_page().then(function (resolved) {
+		return summary_page();
+	}).then(function (resolved) {
+		return done_page();
+	}).then(function (resolve) {
+		console.log("Finished");
 	});
-	summary_page();
+	
 }
 function promiseRace(){
 		var Page1 = new Promise(function(resolve,reject){
