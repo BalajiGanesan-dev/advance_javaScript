@@ -3,7 +3,7 @@ class CheckMonthEndBalance{
     constructor(balance){
         this.balance = balance;
     }
-
+    /*Can contain any API calls or complex logics */
     CheckBalanceAfterRent(amount){
         this.balance = this.balance- amount;
         return this;
