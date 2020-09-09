@@ -5,20 +5,106 @@
 
     <style></style>
     <body>
-        <h1>Iterators</h1>
+        <h1 onclick="callNextIterable()" style="width:200px;background-color: crimson;cursor:pointer">Iterators</h1>
 
     </body>
     <script>
+
+        /*Existing in-built objects using Iterators*/
+
+        // var myArray = [1,2,3,4,5,6,7];
+        // var Iterator = myArray[Symbol.iterator]();
+
+        // function callNextIterable(){
+        //     console.log(Iterator.next());
+        // }
+
+        /*********************************************/
+
+        /*Converting custom objects into iterator */
+
+        /*******************************************/
+
+        function* TaxGenrator(price){
+            
+            this.price = price;
+            
+            yield apply_SGST(this.price);      /**pauesed**/
+                                          /**resumed**/
+
+            yield apply_CGST(this.price);      /**pauesed**/
+                                          /**resumed**/
+
+            yield apply_IGST(this.price);      /**pauesed**/
+                                          /**resumed**/
+
+            yield return_total_price(this.price);
+
+            return this.price;
+        }
+
+        function apply_SGST(price){
+
+            console.log(price);
+
+        }
+        function apply_CGST(price){
+
+            console.log(price);
+
+        }
+        function apply_IGST(price){
+
+            console.log(price);
+
+        }
+        function return_total_price(price){
+
+            console.log(price);
+
+        }
+
+        var a = TaxGenrator(100);
+        a.next();
+        a.next();
+        a.next();
+        a.next();
+
 
     </script>
 </html>
 
 <!--
-    What is Iterators?
-                    Iterators is an object which defines a sequence and potentially returns a value on he completion.
+next()
+  |
 
-                    Iterable Protocol : Some built-in objects like Array are having iteration behavior by default . But 
-                                        genral objects do not have. So Iterable protocols allows to define the iteration behavior 
-                                        in genral Objects.
+iterator/Genrator
+  |
+Genrators internally use itreators
+  |
+what is iterators?
+  |
+what is Genrators ?
+  |
+How next() works . What can be happened behind the scenes?
+
+
+    What is Iterators?
+                    Iterators is an object which defines a sequence and potentially returns a value on the completion.
+
+                    Some built-in objects like Array are having iteration behavior by default . But 
+                    genral objects do not have. So Iterable protocols allows to define the iteration behavior 
+                    in genral Objects.
+
+                    Iterator object have a next() method. And this next() method returns the next iterable.
                     
+    Why the concept came ? Why we need to use Iterators?  
+                    We can iterate over objects like Array, but we may wants to iterate our custom Object then we need to create an iterator for that.
+
+    How to create an Iterator ?
+                    An itreator can be created by implementing the Symbol.iterator interface (it acts like interface).
+                    So that itreator can have for...of.. loop  . 
+
+
+
 -->
